@@ -55,7 +55,8 @@ jobs:
       - name: Resolve Package Dependencies
         working-directory: fastlane
         run: |
-          xcodebuild -resolvePackageDependencies -workspace ../Thunderbird.xcworkspace -scheme Thunderbird
+          # Pass the toolchain flag to xcodebuild to use the newly installed Swift version
+          xcodebuild -resolvePackageDependencies -workspace ../Thunderbird.xcworkspace -scheme Thunderbird CODE_SIGNING_ALLOWED=NO TOOLCHAINS=swift
 
       - name: Upload build artifacts (if build fails)
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
