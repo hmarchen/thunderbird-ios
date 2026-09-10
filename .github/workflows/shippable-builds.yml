@@ -31,7 +31,12 @@ jobs:
           xcode-select-version: ${{ env.XCODE_VERSION }}
 
       - name: Ensure iOS Simulator Runtime installed
-        run: xcodebuild -downloadPlatform iOS
+        run: |
+            # Wake up the CoreSimulator background service
+            xcrun simctl list > /dev/null
+            
+            # Now download the platform
+            xcodebuild -downloadPlatform iOS
 
       - name: Setup Ruby and Fastlane
         uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
