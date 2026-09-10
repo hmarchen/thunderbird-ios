@@ -6,7 +6,7 @@ env:
   DEFAULT_VERSION: &default_version "1.0"
   DEFAULT_NOTIFY_TESTERS: &default_notify_testers false
   DEFAULT_TEST_DEVICE: &default_test_device "iPhone 17"
-  XCODE_VERSION: "26.1"
+  XCODE_VERSION: "26.2"
 
 on:
   workflow_dispatch:
@@ -45,18 +45,12 @@ jobs:
           bundler-cache: true
           working-directory: fastlane
 
-      - name: Setup Swift 6.3 Toolchain
-        uses: swift-actions/setup-swift@v2
-        with:
-          swift-version: "6.3"
-
-
 
       - name: Resolve Package Dependencies
         working-directory: fastlane
         run: |
           # Pass the toolchain flag to xcodebuild to use the newly installed Swift version
-          xcodebuild -resolvePackageDependencies -workspace ../Thunderbird.xcworkspace -scheme Thunderbird CODE_SIGNING_ALLOWED=NO TOOLCHAINS=swift
+          xcodebuild -resolvePackageDependencies -workspace ../Thunderbird.xcworkspace -scheme Thunderbird
 
       - name: Upload build artifacts (if build fails)
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
