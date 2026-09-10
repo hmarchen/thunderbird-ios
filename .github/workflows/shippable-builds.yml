@@ -45,6 +45,12 @@ jobs:
           bundler-cache: true
           working-directory: fastlane
 
+      - name: Setup Swift 6.3 Toolchain
+        uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: "6.3"
+
+
 
       - name: Resolve Package Dependencies
         working-directory: fastlane
